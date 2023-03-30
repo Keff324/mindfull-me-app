@@ -1,0 +1,1571 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MindfullMeApp());
+
+class MindfullMeApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'MindfullMe',
+      theme: ThemeData(
+        primaryColor: Color(0xFF3A75C4),
+        accentColor: Color(0xFF4CAF50),
+        backgroundColor: Color(0xFFC4D4ED),
+        fontFamily: 'Roboto',
+      ),
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('MindfullMe'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Welcome to MindfullMe!',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 16),
+            RaisedButton(
+              child: Text('Get Started'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MindfulnessPage()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MindfulnessPage extends StatefulWidget {
+  @override
+  _MindfulnessPageState createState() => _MindfulnessPageState();
+}
+
+class _MindfulnessPageState extends State<MindfulnessPage> {
+  int _currentStep = 0;
+  List<Step> _steps = [    Step(      title: Text('Breathe'),      content: Text('Take deep breaths for 2 minutes.'),      isActive: true,    ),    Step(      title: Text('Relax'),      content: Text('Relax your muscles for 5 minutes.'),      isActive: true,    ),    Step(      title: Text('Reflect'),      content: Text('Reflect on your thoughts and feelings for 10 minutes.'),      isActive: true,    ),  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Mindfulness Exercises'),
+      ),
+      body: Stepper(
+        currentStep: _currentStep,
+        steps: _steps,
+        onStepTapped: (index) {
+          setState(() {
+            _currentStep = index;
+          });
+        },
+        onStepContinue: () {
+          setState(() {
+            if (_currentStep < _steps.length - 1) {
+              _currentStep += 1;
+            } else {
+              // TODO: Show progress and offer personalized coaching
+              // based on user's individual needs and preferences.
+            }
+          });
+        },
+        onStepCancel: () {
+          setState(() {
+            if (_currentStep > 0) {
+              _currentStep -= 1;
+            } else {
+              Navigator.pop(context);
+            }
+          });
+        },
+      ),
+    );
+  }
+}
+import 'package:flutter/material.dart';
+
+class MindfullMeApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'MindfullMe',
+      theme: ThemeData(
+        primaryColor: Colors.blueGrey[900], // calming primary color
+        fontFamily: 'Open Sans', // calming font family
+      ),
+      home: MindfullMeHomePage(),
+    );
+  }
+}
+
+class MindfullMeHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('MindfullMe'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              // TODO: Add settings page
+            },
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Welcome to MindfullMe',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'We are here to help you find inner peace and happiness.',
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+            ),
+            Expanded(
+              child: PageView(
+                children: [
+                  MindfullMeToolPage(
+                    title: 'Mood Tracker',
+                    description: 'Track your mood daily and get insights on your emotional patterns.',
+                    icon: Icons.emoji_emotions_outlined,
+                    backgroundColor: Colors.purple[100],
+                  ),
+                  MindfullMeToolPage(
+                    title: 'Goal Setter',
+                    description: 'Set and achieve your personal goals with our guided goal-setting tool.',
+                    icon: Icons.check_circle_outline,
+                    backgroundColor: Colors.green[100],
+                  ),
+                  MindfullMeToolPage(
+                    title: 'Progress Tracker',
+                    description: 'Track your progress towards your goals and see how far you\'ve come.',
+                    icon: Icons.trending_up_outlined,
+                    backgroundColor: Colors.blue[100],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MindfullMeToolPage extends StatelessWidget {
+  final String title;
+  final String description;
+  final IconData icon;
+  final Color backgroundColor;
+
+  const MindfullMeToolPage({
+    Key? key,
+    required this.title,
+    required this.description,
+    required this.icon,
+    required this.backgroundColor,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: backgroundColor,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            size: 128.0,
+            color: Theme.of(context).primaryColor,
+          ),
+          SizedBox(height: 16.0),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.headline5,
+          ),
+          SizedBox(height: 8.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: Text(
+              description,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+dartCopy code
+import 'package:flutter/material.dart';
+
+class YogaExerciseWidget extends StatelessWidget {
+  final String title;
+  final String image;
+  final String description;
+  final String safetyTips;
+  final String modifications;
+
+  YogaExerciseWidget({
+    required this.title,
+    required this.image,
+    required this.description,
+    required this.safetyTips,
+    required this.modifications,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+            child: Image.asset(
+              image,
+              height: 150,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  description,
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 16,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  "Safety Tips:",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  safetyTips,
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 14,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  "Modifications:",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  modifications,
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+import 'package:flutter/material.dart';
+
+class YogaExerciseWidget extends StatefulWidget {
+  final String title;
+  final String image;
+  final List<String> yogaTypes;
+  final Map<String, dynamic> sessionContent;
+
+  YogaExerciseWidget({
+    required this.title,
+    required this.image,
+    required this.yogaTypes,
+    required this.sessionContent,
+  });
+
+  @override
+  _YogaExerciseWidgetState createState() => _YogaExerciseWidgetState();
+}
+
+class _YogaExerciseWidgetState extends State<YogaExerciseWidget> {
+  late String _selectedType;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedType = widget.yogaTypes[0];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+            child: Image.asset(
+              widget.image,
+              height: 150,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                SizedBox(height: 5),
+                DropdownButton(
+                  value: _selectedType,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedType = newValue!;
+                    });
+                  },
+                  items: widget.yogaTypes.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  widget.sessionContent[_selectedType]['description'],
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 16,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  "Safety Tips:",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  widget.sessionContent[_selectedType]['safetyTips'],
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 14,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  "Modifications:",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  widget.sessionContent[_selectedType]['modifications'],
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class YogaExerciseWidget extends StatelessWidget {
+  final String title;
+  final String image;
+  final String description;
+  final String safetyTips;
+  final String modifications;
+  final List<String> yogaTypes;
+  final Map<String, String> sessionContent;
+
+  YogaExerciseWidget({
+    required this.title,
+    required this.image,
+    required this.description,
+    required this.safetyTips,
+    required this.modifications,
+    required this.yogaTypes,
+    required this.sessionContent,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+            child: Image.asset(
+              image,
+              height: 150,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  description,
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 16,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  "Safety Tips:",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  safetyTips,
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 14,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  "Modifications:",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  modifications,
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 14,
+                  ),
+                ),
+                SizedBox(height: 10),
+                DropdownButtonFormField<String>(
+                  value: yogaTypes[0],
+                  items: yogaTypes.map((type) {
+                    return DropdownMenuItem<String>(
+                      value: type,
+                      child: Text(type),
+                    );
+                  }).toList(),
+                  decoration: InputDecoration(
+                    labelText: 'Yoga Type',
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: (value) {},
+                ),
+                SizedBox(height: 10),
+                Text(
+                  sessionContent[yogaTypes[0]]!,
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+import 'package:flutter/material.dart';
+
+class YogaExerciseWidget extends StatefulWidget {
+  final String image;
+  final List<String> yogaTypes;
+  final Map<String, String> sessionContent;
+
+  YogaExerciseWidget({
+    required this.image,
+    required this.yogaTypes,
+    required this.sessionContent,
+  });
+
+  @override
+  _YogaExerciseWidgetState createState() => _YogaExerciseWidgetState();
+}
+
+class _YogaExerciseWidgetState extends State<YogaExerciseWidget> {
+  String _selectedType = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedType = widget.yogaTypes[0];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+            child: Image.asset(
+              widget.image,
+              height: 150,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DropdownButton<String>(
+                  value: _selectedType,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedType = value!;
+                    });
+                  },
+                  items: widget.yogaTypes
+                      .map((type) => DropdownMenuItem(
+                            value: type,
+                            child: Text(type),
+                          ))
+                      .toList(),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  widget.sessionContent[_selectedType]!,
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+import 'package:flutter/material.dart';
+
+class ExerciseScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Mindful Exercises'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ExerciseButton(
+            text: 'Breathing Exercises',
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BreathingExercisesScreen(),
+              ),
+            ),
+          ),
+          ExerciseButton(
+            text: 'Meditation',
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MeditationScreen(),
+              ),
+            ),
+          ),
+          ExerciseButton(
+            text: 'Gratitude Practice',
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => GratitudePracticeScreen(),
+              ),
+            ),
+          ),
+          ExerciseButton(
+            text: 'Yoga',
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => YogaScreen(),
+              ),
+            ),
+          ),
+          ExerciseButton(
+            text: 'Progressive Muscle Relaxation',
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PMRScreen(),
+              ),
+            ),
+          ),
+          ExerciseButton(
+            text: 'Mindful Eating',
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MindfulEatingScreen(),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ExerciseButton extends StatelessWidget {
+  final String text;
+  final Function onTap;
+
+  const ExerciseButton({Key? key, required this.text, required this.onTap})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap as void Function()?,
+      child: Container(
+        padding: EdgeInsets.all(16),
+        margin: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: Colors.grey.shade300,
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+import 'package:flutter/material.dart';
+
+class BreathingExerciseScreen extends StatefulWidget {
+  @override
+  _BreathingExerciseScreenState createState() => _BreathingExerciseScreenState();
+}
+
+class _BreathingExerciseScreenState extends State<BreathingExerciseScreen> {
+  bool isBreathing = false;
+
+  void _startBreathing() {
+    setState(() {
+      isBreathing = true;
+    });
+  }
+
+  void _stopBreathing() {
+    setState(() {
+      isBreathing = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Breathing Exercise'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (!isBreathing)
+              ElevatedButton(
+                onPressed: _startBreathing,
+                child: Text('Start Breathing Exercise'),
+              ),
+            if (isBreathing)
+              Column(
+                children: [
+                  Text('Breathe in...'),
+                  SizedBox(height: 16),
+                  Text('Hold...'),
+                  SizedBox(height: 16),
+                  Text('Breathe out...'),
+                  SizedBox(height: 32),
+                  ElevatedButton(
+                    onPressed: _stopBreathing,
+                    child: Text('Stop Breathing Exercise'),
+                  ),
+                ],
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+import 'package:flutter/material.dart';
+
+class BreathingExercise extends StatefulWidget {
+  @override
+  _BreathingExerciseState createState() => _BreathingExerciseState();
+}
+
+class _BreathingExerciseState extends State<BreathingExercise> {
+  int _breathCount = 0;
+  String _breathMessage = 'Take a deep breath in through your nose...';
+
+  void _updateBreathCount() {
+    setState(() {
+      _breathCount++;
+    });
+  }
+
+  void _resetBreathCount() {
+    setState(() {
+      _breathCount = 0;
+      _breathMessage = 'Take a deep breath in through your nose...';
+    });
+  }
+
+  void _startBreathing() {
+    _resetBreathCount();
+    _breathMessage = 'Take a deep breath in through your nose...';
+  }
+
+  void _nextBreath() {
+    if (_breathCount % 2 == 0) {
+      _breathMessage = 'Hold your breath...';
+    } else {
+      _breathMessage = 'Exhale slowly through your mouth...';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Breathing Exercise',
+          style: TextStyle(
+            fontSize: 28.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.blueGrey[900],
+        centerTitle: true,
+      ),
+      body: Container(
+        padding: EdgeInsets.all(24.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Breath Count: $_breathCount',
+              style: TextStyle(
+                fontSize: 28.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.blueGrey[900],
+              ),
+            ),
+            SizedBox(
+              height: 24.0,
+            ),
+            Text(
+              _breathMessage,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.normal,
+                color: Colors.blueGrey[900],
+              ),
+            ),
+            SizedBox(
+              height: 24.0,
+            ),
+            RaisedButton(
+              onPressed: () {
+                _updateBreathCount();
+                _nextBreath();
+              },
+              child: Text(
+                'Breathe',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white,
+                ),
+              ),
+              color: Colors.blueGrey[900],
+              padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+            ),
+            SizedBox(
+              height: 16.0,
+            ),
+            RaisedButton(
+              onPressed: () {
+                _startBreathing();
+              },
+              child: Text(
+                'Reset',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white,
+                ),
+              ),
+              color: Colors.blueGrey[900],
+              padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+            ),
+            SizedBox(
+              height: 24.0,
+            ),
+            Text(
+              'Don\'t forget to breathe deeply and relax!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.normal,
+                color: Colors.blueGrey[900],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+import 'package:flutter/material.dart';
+
+class MeditationExercise extends StatefulWidget {
+  @override
+  _MeditationExerciseState createState() => _MeditationExerciseState();
+}
+
+class _MeditationExerciseState extends State<MeditationExercise> {
+  String _meditationType = 'Mindfulness';
+  int _meditationTime = 5;
+  bool _isMeditating = false;
+
+  List<String> _meditationTypes = ['Mindfulness', 'Loving-kindness', 'Body Scan'];
+  List<int> _meditationTimes = [5, 10, 15, 20];
+
+  void _startMeditation() {
+    setState(() {
+      _isMeditating = true;
+    });
+    Future.delayed(Duration(minutes: _meditationTime), () {
+      setState(() {
+        _isMeditating = false;
+      });
+      _showMeditationCompleteDialog();
+    });
+  }
+
+  void _showMeditationCompleteDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Meditation Complete'),
+          content: Text('You have successfully completed your meditation session.'),
+          actions: [
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Meditation Exercise',
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.blueGrey[900],
+        centerTitle: true,
+      ),
+      body: Container(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            DropdownButton(
+              value: _meditationType,
+              items: _meditationTypes.map((type) {
+                return DropdownMenuItem(
+                  value: type,
+                  child: Text(type),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  _meditationType = value;
+                });
+              },
+            ),
+            SizedBox(
+              height: 16.0,
+            ),
+            DropdownButton(
+              value: _meditationTime,
+              items: _meditationTimes.map((time) {
+                return DropdownMenuItem(
+                  value: time,
+                  child: Text('$time minutes'),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  _meditationTime = value;
+                });
+              },
+            ),
+            SizedBox(
+              height: 32.0,
+            ),
+            RaisedButton(
+              onPressed: () {
+                _startMeditation();
+              },
+              child: Text(
+                'Start Meditation',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white,
+                ),
+              ),
+              color: Colors.blueGrey[900],
+              padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+            ),
+            SizedBox(
+              height: 16.0,
+            ),
+            Visibility(
+              visible: _isMeditating,
+              child: Text(
+                'Meditating...',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.blueGrey[900],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+import 'package:flutter/material.dart';
+
+class GratitudeExercise extends StatefulWidget {
+  @override
+  _GratitudeExerciseState createState() => _GratitudeExerciseState();
+}
+
+class _GratitudeExerciseState extends State<GratitudeExercise> {
+  final TextEditingController _textController = TextEditingController();
+  List<String> _gratitudeList = [];
+
+  void _addGratitude() {
+    if (_textController.text.isNotEmpty) {
+      setState(() {
+        _gratitudeList.add(_textController.text);
+        _textController.clear();
+      });
+    }
+  }
+
+  void _removeGratitude(int index) {
+    setState(() {
+      _gratitudeList.removeAt(index);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Gratitude Exercise',
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.blueGrey[900],
+        centerTitle: true,
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(
+            child: ListView.builder(
+              itemCount: _gratitudeList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Dismissible(
+                  key: UniqueKey(),
+                  direction: DismissDirection.endToStart,
+                  onDismissed: (direction) {
+                    _removeGratitude(index);
+                  },
+                  background: Container(
+                    alignment: AlignmentDirectional.centerEnd,
+                    color: Colors.red,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                      child: Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  child: ListTile(
+                    title: Text(_gratitudeList[index]),
+                  ),
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _textController,
+              decoration: InputDecoration(
+                hintText: 'Enter something you are grateful for',
+              ),
+              onSubmitted: (text) {
+                _addGratitude();
+              },
+            ),
+          ),
+          RaisedButton(
+            onPressed: () {
+              _addGratitude();
+            },
+            child: Text(
+              'Add Gratitude',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.normal,
+                color: Colors.white,
+              ),
+            ),
+            color: Colors.blueGrey[900],
+            padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+import 'package:flutter/material.dart';
+
+class GratitudePractice extends StatefulWidget {
+  @override
+  _GratitudePracticeState createState() => _GratitudePracticeState();
+}
+
+class _GratitudePracticeState extends State<GratitudePractice> {
+  final TextEditingController _gratitudeController = TextEditingController();
+  List<String> _gratitudeList = [];
+
+  void _addGratitude() {
+    String gratitude = _gratitudeController.text.trim();
+    if (gratitude.isNotEmpty) {
+      setState(() {
+        _gratitudeList.add(gratitude);
+        _gratitudeController.clear();
+      });
+    }
+  }
+
+  void _removeGratitude(int index) {
+    setState(() {
+      _gratitudeList.removeAt(index);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Gratitude Practice',
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.blueGrey[900],
+        centerTitle: true,
+      ),
+      body: Container(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(
+              'Reflect on the things you are thankful for in your life:',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.normal,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(height: 16.0),
+            TextField(
+              controller: _gratitudeController,
+              decoration: InputDecoration(
+                hintText: 'Enter something you are grateful for',
+              ),
+            ),
+            SizedBox(height: 16.0),
+            RaisedButton(
+              onPressed: _addGratitude,
+              child: Text(
+                'Add Gratitude',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white,
+                ),
+              ),
+              color: Colors.blueGrey[900],
+              padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+            ),
+            SizedBox(height: 32.0),
+            Text(
+              'Your Gratitude List:',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.normal,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(height: 16.0),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _gratitudeList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Text(_gratitudeList[index]),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () => _removeGratitude(index),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+List<Map<String, String>> pmrSessions = [
+  {
+    'title': 'PMR for Stress Relief',
+    'description':
+        'This PMR session focuses on releasing tension from the neck and shoulders, which are common areas for stress-related tension.',
+    'safetyTips':
+        'Be sure to release tension slowly and not to over-tense your muscles. If you experience any pain, stop immediately.',
+    'modifications':
+        'If you are unable to tense a particular muscle group, simply skip that group and move on to the next one.',
+  },
+  {
+    'title': 'PMR for Sleep',
+    'description':
+        'This PMR session focuses on releasing tension from the arms and legs to promote relaxation and improve sleep quality.',
+    'safetyTips':
+        'Be sure to release tension slowly and not to over-tense your muscles. If you experience any pain, stop immediately.',
+    'modifications':
+        'If you are unable to tense a particular muscle group, simply skip that group and move on to the next one.',
+  },
+  {
+    'title': 'PMR for Anxiety',
+    'description':
+        'This PMR session focuses on releasing tension from the chest and stomach to promote deep breathing and relaxation.',
+    'safetyTips':
+        'Be sure to release tension slowly and not to over-tense your muscles. If you experience any pain, stop immediately.',
+    'modifications':
+        'If you are unable to tense a particular muscle group, simply skip that group and move on to the next one.',
+  },
+];
+
+import 'package:flutter/material.dart';
+
+class PMRSession {
+  final String title;
+  final String description;
+  final String safetyTips;
+  final String modifications;
+
+  PMRSession({
+    required this.title,
+    required this.description,
+    required this.safetyTips,
+    required this.modifications,
+  });
+}
+
+class PMRWidget extends StatelessWidget {
+  final List<PMRSession> sessions;
+
+  PMRWidget({required this.sessions});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: sessions.length,
+      itemBuilder: (context, index) {
+        final session = sessions[index];
+        return Container(
+          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 5,
+                offset: Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      session.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      session.description,
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Safety Tips:",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      session.safetyTips,
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 14,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Modifications:",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      session.modifications,
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+final List<PMRSession> pmrSessions = [
+  PMRSession(
+    title: "Session 1",
+    description: "This is a description for session 1.",
+    safetyTips: "These are safety tips for session 1.",
+    modifications: "These are modifications for session 1.",
+  ),
+  PMRSession(
+    title: "Session 2",
+    description: "This is a description for session 2.",
+    safetyTips: "These are safety tips for session 2.",
+    modifications: "These are modifications for session 2.",
+  ),
+  // add more sessions here as needed
+];
+
+PMRWidget(sessions: pmrSessions)
+
+
+
+
+List<Map<String, String>> mindfulEatingSessions = [
+  {
+    'title': 'Raisin Meditation',
+    'description': 'In this exercise, you will use a raisin to practice mindfulness and awareness while eating. Take your time and focus on the sensory experience of eating the raisin.',
+    'safetyTips': 'Ensure that you are not allergic to raisins before doing this exercise. If you have any doubts, consult your doctor.',
+    'modifications': 'If you do not like raisins, you can substitute them with another small piece of food with a similar texture, such as a small piece of chocolate.'
+  },
+  {
+    'title': 'Slow Eating',
+    'description': 'In this exercise, you will eat a meal slowly and mindfully, paying close attention to the sensory experience of eating.',
+    'safetyTips': 'Ensure that the meal you are eating is safe and healthy. If you have any dietary restrictions or concerns, consult your doctor or a registered dietitian.',
+    'modifications': 'If you have difficulty chewing or swallowing, you can choose softer foods or cut them into smaller pieces.'
+  },
+  {
+    'title': 'Savoring',
+    'description': 'In this exercise, you will eat a small piece of food and focus on the positive emotions and feelings that arise from the experience.',
+    'safetyTips': 'Ensure that the food you are eating is safe and healthy. If you have any dietary restrictions or concerns, consult your doctor or a registered dietitian.',
+    'modifications': 'If you do not like the food suggested in this exercise, you can substitute it with a small piece of another food that you enjoy.'
+  },
+];
+
+import 'package:flutter/material.dart';
+
+class MindfulEatingWidget extends StatelessWidget {
+  final List<Map<String, String>> sessions;
+
+  const MindfulEatingWidget({Key? key, required this.sessions}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: sessions.length,
+      itemBuilder: (context, index) {
+        final session = sessions[index];
+        return Card(
+          margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: InkWell(
+            onTap: () {
+              // TODO: Implement the mindful eating session
+            },
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    session['title']!,
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  SizedBox(height: 8.0),
+                  Text(
+                    session['description']!,
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                  SizedBox(height: 8.0),
+                  Text(
+                    'Safety Tips:',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                  Text(
+                    session['safetyTips']!,
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                  SizedBox(height: 8.0),
+                  Text(
+                    'Modifications:',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                  Text(
+                    session['modifications']!,
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+MindfulEatingWidget(sessions: mindfulEatingSessions)
